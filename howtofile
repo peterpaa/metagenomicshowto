@@ -1,0 +1,68 @@
+To be filled:
+1) Kraken2
+2) Nonpareil
+
+
+megahit
+
+https://github.com/voutcn/megahit
+
+1) Install via conda environment
+2) Command (27 to 127 seems preferable)
+  - megahit -1 pe_1.fq -2 pe_2.fq -o out --k_min 27 --k_max 127 --k_step 10
+
+metaCarvel
+
+https://github.com/marbl/MetaCarvel/wiki/5.-Interpreting-the-output
+
+1) Install as per github page
+  - conda activate py2 (install everything under python 2 environment)
+  - Check samtools, bedtools, numpy, bowtie2 through conda
+  - pip install networkx==1.10
+2) Prepare data using bowtie2 and samtools as shown
+3) Command
+  - python <<*Carvel/run.py>> -a <<*83a/*127/*.fa>> -m <<*83a/*bowtie/alignment.bam>> -d <<MBS1383mega127filcarvrk>> -r true -l 1000 -k true
+  - Note: always keep -r and -k true. -l 1000 for contigs above 1000 only for binning 
+
+minCED 
+
+https://github.com/ctSkennerton/minced
+
+1) Install minCED through conda
+2) Command
+  - minced -minNR 2 (or 3) -minRL 16 -maxRL 64 -minSL 8 -maxSL 72 <<.fa>> <<.txt>>
+
+
+16S rRNA detection and analysis
+
+https://github.com/christophertbrown/bioscripts
+
+1) Install as per github
+  - Install infernal and SSU-Align
+  - Download Database from their github and upload it to your system
+  - Create the environment export ssucmdb="databases/ssu-align-0p1.1.cm"
+2) Command
+  -  16SfromHMM.py -f <<*84a/*carvrk/scaffolds.fa>> -m -t 16 > <<MBS1384carvrk16S.fa>>
+3) Analysis
+  - Download the .fa file
+  - Silva ACT website. Enable Sina Search and Classify. 
+  - Enable SILVA taxonomic classification (LCA's)
+4) Report
+  - Open .csv in R studio; be sure all libraries and dependencies there
+  - E.g. Keep only scaffold ID, % identity, length of bp, taxonomy
+  
+        silva1383 <- read.csv("a.csv", head = TRUE, sep = ";")
+        silva1383 <- silva1383[c(3,9,15,21)]
+
+
+
+
+
+
+
+
+
+
+
+
+
