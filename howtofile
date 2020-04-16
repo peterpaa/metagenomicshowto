@@ -54,6 +54,10 @@ https://github.com/christophertbrown/bioscripts
         silva1383 <- read.csv("a.csv", head = TRUE, sep = ";")
         silva1383 <- silva1383[c(3,9,15,21)]
 
+Libraries (for phylogeny)
+
+1) Download all "complete genomes" from assembly
+
 
 
 
