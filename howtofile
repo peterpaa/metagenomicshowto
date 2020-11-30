@@ -76,7 +76,11 @@ Libraries (for phylogeny and other CRISPR stuff)
 2) Download meta txid 256318, 410656, 410657
 
 
+CCtyper
 
+1) Install (conda create -n cctyper -c conda-forge -c bioconda -c russel88 cctyper
+conda activate cctyper)
+2) cctyper assembly.fa my_output --prodigal meta (or single) --no_plot --keep_tmp --skip_check -t 96
 
 
 
