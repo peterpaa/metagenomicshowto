@@ -48,6 +48,10 @@ https://github.com/Russel88/CRISPRCasTyper/blob/master/bin/cctyper
 For scaffold/contig: cctyper <<input fasta>> <<output file directory name>> –-prodigal meta -t <<thread number>> --keep_tmp
 For meta: similar to scaffold/contig
 
+Post-scaffold
+
+1) For reporting alignment, report using bowtie2
+
 
 16S rRNA detection and analysis
 
@@ -82,7 +86,10 @@ CCtyper
 conda activate cctyper)
 2) cctyper assembly.fa my_output --prodigal meta (or single) --no_plot --keep_tmp --skip_check -t 96
 
+Metawrap
 
+1) Binning
+  metawrap binning -o MBS1384_initialbins -t 64 -a MBS1384metacarvel.fa --run-checkm --metabat2 --maxbin2 --concoct *fastq
 
 
 
