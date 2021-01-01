@@ -52,6 +52,12 @@ Post-scaffold
 
 1) For reporting alignment, report using bowtie2
 
+Binning
+
+1) metawrap install
+2) do maxbin2 and metabat2 from metawrap (metawrap binning -o INITIAL_BINNING -t 96 -a ASSEMBLY/final_assembly.fasta --metabat2 --maxbin2 --run-checkm CLEAN_READS/ERR*fastq)
+3) Do concoct separately (https://onestopdataanalysis.com/binning/ and the github page) using bwa mem; use bowtie2 just for alignment statistics
+
 
 16S rRNA detection and analysis
 
