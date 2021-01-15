@@ -27,8 +27,12 @@ https://github.com/marbl/MetaCarvel/wiki/5.-Interpreting-the-output
   - Check samtools, bedtools, numpy, bowtie2 through conda
   - pip install networkx==1.10
 2) Prepare data using bowtie2 and samtools as shown
+    - bowtie2-build --threads 96 contigs.fasta idx
+    - bowtie2 --threads 96 -x idx -U first.fastq.gz | samtools view -bS -@ 96 - | samtools sort -@ 96 - -o alignment_1.bam (do the same for the R2 lib)
+    - samtools merge -@ 96 alignment_total.bam alignment_1.bam alignment_2.bam
+    - samtools sort -@ 96 -n alignment_total.bam -o alignment.bam
 3) Command
-  - python <<*Carvel/run.py>> -a <<*83a/*127/*.fa>> -m <<*83a/*bowtie/alignment.bam>> -d <<MBS1383mega127filcarvrk>> -r true -l 1000 -k true
+  - python <<*Carvel/run.py>> -a <<*83a/*127/*.fa>> -m <<*83a/*bowtie/alignment.bam>> -d <<MBS1383mega127filcarvrk>> -r true -l 1000
   - Note: always keep -r and -k true. -l 1000 for contigs above 1000 only for binning 
 
 minCED 
@@ -50,7 +54,7 @@ For meta: similar to scaffold/contig
 
 Post-scaffold
 
-1) For reporting alignment, report using bowtie2. Actually bwa is fine.
+1) For reporting alignment, report using bowtie2. Actually bwa is fine. (samtools flagstat bwaOutput.bam)
 
 Binning
 
