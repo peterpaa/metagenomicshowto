@@ -2,6 +2,12 @@ To be filled:
 1) Kraken2
 2) Nonpareil
 
+TrimGalore
+
+trim_galore --stringency 5 --length 75 --quality 20 --max_n 2 --trim-n --cores 24 --paired
+check under pgrep -a perl
+
+
 metaspades
 
 https://github.com/ablab/spades#sec3.2
@@ -146,6 +152,6 @@ conda activate cctyper)
 
 Plass
 
-plass assemble *_1*trimmed.fq.gz *_2*trimmed.fq.gz MBS1376_plass MBS1376_plass_tmp --threads 64 --min-length 15
+plass assemble *84/*_1*trimmed.fq.gz *84/*_2*trimmed.fq.gz MBS1384_plass MBS1384_plass_tmp --threads 64
 
 
