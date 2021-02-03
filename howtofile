@@ -155,6 +155,13 @@ Plass
 
 trim_galore --stringency 5 --length 120 --quality 20 --max_n 2 --trim-n --cores 8 –paired MBS1384R1_1.fastq.gz MBS1384R1_2.fastq.gz
 zcat MBS1384R1_1_trimming_min120.fastq.gz MBS1384R1_2_trimming_min120.fastq.gz | seqkit sample -p 0.5 -o MBS1384R1_12_min120_max10GB.fastq.gz -j 64 (-p parameters should have a final dataset of 20GB)
-plass assemble *84/*_1*trimmed.fq.gz *84/*_2*trimmed.fq.gz MBS1384_plass MBS1384_plass_tmp --threads 64 --min-length 40
+plass assemble *84/*_1*trimmed.fq.gz *84/*_2*trimmed.fq.gz MBS1384_plass MBS1384_plass_tmp --threads 64 --min-length 40 (do pullseq if needed)
+
+MMseqs2
+
+mmseqs createdb QUERY.fasta queryDB (.hmm acceptable)
+mmseqs createdb DB.fasta targetDB (plass output)
+mmseqs createindex targetDB tmp
+mmseqs search queryDB_Cas12_hmm targetDB_trial_1 resultsDB_trial_1 tmp --cov-mode 0 -c 0.7 -e 0.00001 --num-iterations 2
 
 
