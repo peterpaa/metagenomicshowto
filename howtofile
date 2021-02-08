@@ -55,7 +55,7 @@ https://github.com/Russel88/CRISPRCasTyper/blob/master/bin/cctyper
 
 1) Install cctyper as above link specified, activate cctyper environment
 2) For chromosomes: cctyper <<input fasta>> <<output file directory name>> --prodigal single --circular -t <<thread number>> --keep_tmp 
-For scaffold/contig: cctyper <<input fasta>> <<output file directory name>> –-prodigal meta -t <<thread number>> --keep_tmp
+For scaffold/contig: cctyper <<input fasta>> <<output file directory name>> --prodigal meta -t <<thread number>> --keep_tmp
 For meta: similar to scaffold/contig
 
 
@@ -167,7 +167,8 @@ plass assemble *84/*_1*trimmed.fq.gz *84/*_2*trimmed.fq.gz MBS1384_plass MBS1384
 pullseq for 100 aa only
 seqkit split and seqkit fx2tsv 
 
+EMBOSS (backtranseq)
 
-HMMer
+backtranseq -cfile Eecoli.cut
 
 
