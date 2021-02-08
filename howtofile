@@ -58,27 +58,26 @@ https://github.com/Russel88/CRISPRCasTyper/blob/master/bin/cctyper
 For scaffold/contig: cctyper <<input fasta>> <<output file directory name>> –-prodigal meta -t <<thread number>> --keep_tmp
 For meta: similar to scaffold/contig
 
-Post-scaffold
 
-1) For reporting alignment, report using bowtie2. Actually bwa is fine. (samtools flagstat bwaOutput.bam)
-
-Binning
-
-1) metawrap install
-2) do maxbin2 and metabat2 from metawrap (metawrap binning -o INITIAL_BINNING -t 96 -a ASSEMBLY/final_assembly.fasta --metabat2 --maxbin2 --run-checkm CLEAN_READS/ERR*fastq)
-3) Do concoct separately (https://onestopdataanalysis.com/binning/ and the github page) using bwa mem; use bowtie2 just for alignment statistics
-
-For concoct:
+For binning:
 
 1) Preparation (alignment)
 
-bwa index original_contigs.fa
-bwa mem -t 96 -o MBS1384aln.sam MBS1384metacarvel.fa MBS1384R1_1.fastq MBS1384R1_2.fastq
-samtools view -b -S -@ 96 -o *.bam *.sam (or if header missing samtools view -bT MBS1383metacarvel.fa MBS1383aln.sam > MBS1383aln.bam)
-samtools sort -@ 96 MBS1384aln.bam MBS1384alnsorted (samtools flagstat bwaOutput.bam - to calculate for % reads aligned)
-samtools index *sorted.bam
+bowtie2-build --threads  scaffold.fasta idx
+bowtie2 --threads 96 -x idx -1 first.fastq.gz -2 first.fastq.gz -S *.sam
 
-2) Preparation (data)
+  (the ff 2 commands are for maxbin2)
+  pileup.sh in=megahit.sam  out=cov.txt
+  awk '{print $1"\t"$5}' cov.txt | grep -v '^#' > abundance.txt
+  
+samtools view -b -S -@ 96 -o *.bam *.sam (or if header missing samtools view -bT MBS1383metacarvel.fa MBS1383aln.sam > MBS1383aln.bam)
+samtools sort -@ 96 MBS1384aln.bam -o MBS1384alnsorted (samtools flagstat bwaOutput.bam - to calculate for % reads aligned)
+samtools index *sorted.bam
+samtools flagstat sortedoutput.bam (report the alignment)
+
+jgi_summarize_bam_contig_depths --outputDepth depth.txt *.bam
+
+2) Preparation and running concoct
 
 cut_up_fasta.py original_contigs.fa -c 10000 -o 0 --merge_last -b contigs_10K.bed > contigs_10K.fa
 concoct_coverage_table.py contigs_10K.bed mapping/Sample*.sorted.bam > coverage_table.tsv (make sure sorted.bam.bai is available in the same folder at this point)
@@ -87,9 +86,18 @@ merge_cutup_clustering.py concoct_output/clustering_gt1000.csv > concoct_output/
 mkdir concoct_output/fasta_bins
 extract_fasta_bins.py original_contigs.fa concoct_output/clustering_merged.csv --output_path concoct_output/fasta_bins (make sure you have mkdir)
 
+3) Running the bins (metabat2 and maxbin2)
+
+metabat2 -i MBS1383_metacarvel.fa -a MBS1383_metabat2_depth.txt -o MBS1383_metabat
+run_MaxBin.pl -contig scaffold.fa -abund abundance.txt -out myout
+
+
 Bins Merging
 
-metawrap bin_refinement -o MBS1384_binmerged -t 96 -A *initialbins/metabat2_bins/ -B *initialbins/maxbin2_bins/ -C *initialbins/concoct_bins/ -c 50 -x 10
+metawrap bin_refinement -o MBS1384_binmerged -t 64 -A *initialbins/metabat2_bins/ -B *initialbins/maxbin2_bins/ -C *initialbins/concoct_bins/ -c 50 -x 10
+
+column -t metawrap_50_10_bins.stats | awk '{print $1, $2, $3, $2-(5*$3)}' | awk '$2>50 && $3<10 && $4>50' | wc -l (to check how many bins are with good quality)
+
 
 RefineM
 
@@ -156,12 +164,10 @@ Plass
 trim_galore --stringency 5 --length 120 --quality 20 --max_n 2 --trim-n --cores 8 –paired MBS1384R1_1.fastq.gz MBS1384R1_2.fastq.gz
 zcat MBS1384R1_1_trimming_min120.fastq.gz MBS1384R1_2_trimming_min120.fastq.gz | seqkit sample -p 0.5 -o MBS1384R1_12_min120_max10GB.fastq.gz -j 64 (-p parameters should have a final dataset of 20GB)
 plass assemble *84/*_1*trimmed.fq.gz *84/*_2*trimmed.fq.gz MBS1384_plass MBS1384_plass_tmp --threads 64 --min-length 40 (do pullseq if needed)
+pullseq for 100 aa only
+seqkit split and seqkit fx2tsv 
 
-MMseqs2
 
-mmseqs createdb QUERY.fasta queryDB (.hmm acceptable)
-mmseqs createdb DB.fasta targetDB (plass output)
-mmseqs createindex targetDB tmp
-mmseqs search queryDB_Cas12_hmm targetDB_trial_1 resultsDB_trial_1 tmp --cov-mode 0 -c 0.7 -e 0.00001 --num-iterations 2
+HMMer
 
 
