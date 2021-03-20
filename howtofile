@@ -164,11 +164,24 @@ Plass
 trim_galore --stringency 5 --length 120 --quality 20 --max_n 2 --trim-n --cores 8 –paired MBS1384R1_1.fastq.gz MBS1384R1_2.fastq.gz
 zcat MBS1384R1_1_trimming_min120.fastq.gz MBS1384R1_2_trimming_min120.fastq.gz | seqkit sample -p 0.5 -o MBS1384R1_12_min120_max10GB.fastq.gz -j 64 (-p parameters should have a final dataset of 20GB)
 plass assemble *84/*_1*trimmed.fq.gz *84/*_2*trimmed.fq.gz MBS1384_plass MBS1384_plass_tmp --threads 64 --min-length 40 (do pullseq if needed)
-pullseq for 100 aa only
+pullseq for 100 aa only and look for complete proteins only *start and the end*
 seqkit split and seqkit fx2tsv 
 
-EMBOSS (backtranseq)
+hmmscan
 
-backtranseq -cfile Eecoli.cut
+1) change hmm to new version
 
+for i in `ls *hmm | sed 's/.hmm//g'`; do hmmconvert ${i}.hmm > ${i}_new.hmm;done
+cat *_new.hmm >> database.hmm
+hmmpress database.hmm
 
+2) hmmscan -o hmmscan_results_completeprotein --tblout hmmtabletrial --noali -E 0.00001 --cpu 64 Profiles/databaseCas12 MBS1384/MBS1384_plass/MBS1384_completeprotein.fas
+
+3) Parse (best hits to a list of fasta names)
+hmmscan --tblout output_file.pfam Pfam-A.hmm seq_file.fasta
+awk '!x[$3]++' ouput_file.pfam > MYBESTHITS.pfam
+
+4) Get fasta 
+
+seqtk subseq test.fa test.txt 
+blastp the resulting fasta
