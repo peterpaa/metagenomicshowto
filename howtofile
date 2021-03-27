@@ -185,3 +185,12 @@ awk '!x[$3]++' ouput_file.pfam > MYBESTHITS.pfam
 
 seqtk subseq test.fa test.txt 
 blastp the resulting fasta
+
+Clean-up for Cas12j results
+Note: Cas12j_proteins_consolidated_summary.tsv has operons with Cas12k homology but classified as Cas12j.
+
+1) grep 'Cas12j' Cas12j_proteins_consolidated_summary.tsv | awk '{print $1}' > Cas12j_proteins_consolidated_summary_showingonlyCas12j.tsv 
+# get operon names with Cas12j in their line (no operons with Cas12k has Cas12j as well)
+
+2) seqkit grep -nrf Cas12j_proteins_consolidated_summary_showingonlynameswithCas12j.txt Cas12j_proteins_consolidated_sorted.fasta -o newfile.fasta
+# things still have to be removed. some contigs have both Cas12j and Cas12k
