@@ -194,3 +194,15 @@ Note: Cas12j_proteins_consolidated_summary.tsv has operons with Cas12k homology 
 
 2) seqkit grep -nrf Cas12j_proteins_consolidated_summary_showingonlynameswithCas12j.txt Cas12j_proteins_consolidated_sorted.fasta -o newfile.fasta
 # things still have to be removed. some contigs have both Cas12j and Cas12k
+
+Cas12a Cas12j manipulation
+
+1) For Cas12j
+  a) Include the Banfield/Doudna paper
+  b) To be done - cluster with the other Cas12 proteins to be sure
+  
+2) For Cas12a
+  a) Cas12a tblastn do cd-hit 95% to reduce number of proteins
+  b) filter the original cas12a tblastn table to include only the cdhit 95
+  c) Get the original genomes. if there are none, don't include them in cctyper.
+  d) do cctyper. get only 
