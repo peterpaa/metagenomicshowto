@@ -7,7 +7,6 @@ TrimGalore
 trim_galore --stringency 5 --length 75 (or 120) --quality 20 --max_n 2 --trim-n --cores 24 --paired
 check under pgrep -a perl
 
-
 metaspades
 
 https://github.com/ablab/spades#sec3.2
@@ -206,3 +205,8 @@ Cas12a Cas12j manipulation
   b) filter the original cas12a tblastn table to include only the cdhit 95
   c) Get the original genomes. if there are none, don't include them in cctyper.
   d) do cctyper. get only 
+  
+MAFFT
+
+mafft --auto --amino input > output
+FastTree Cas12j_all_cdhit95_v1_mafft.fasta > Cas12j_all_cdhit95_v1_mafft_fasttree.fasta
