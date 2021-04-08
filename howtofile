@@ -201,8 +201,8 @@ Cas12a Cas12j manipulation
   a) Include the Banfield/Doudna paper
   b) To be done - cluster with the other Cas12 proteins to be sure
   
-2) For Cas12a
-  a) Cas12a tblastn do cd-hit 95% to reduce number of proteins
+2) For Cas12a (still has to be changed)
+  a) Cas12a tblastn do cd-hit 95% to reduce number of proteins  ------- should be look at those with genome. Then crisprcastyper, then reduce.
   b) filter the original cas12a tblastn table to include only the cdhit 95
   c) Get the original genomes. if there are none, don't include them in cctyper.
   d) do cctyper. get only 
