@@ -4,8 +4,9 @@ To be filled:
 
 TrimGalore
 
-trim_galore --stringency 5 --length 75 (or 120) --quality 20 --max_n 2 --trim-n --cores 24 --paired
+trim_galore --stringency 5 --length 75 (or 120) --quality 20 --max_n 2 --trim-n --cores 24 --paired <<the 2 pairs>>
 check under pgrep -a perl
+expect 2 .fq with val on the name
 
 metaspades
 
@@ -21,8 +22,7 @@ https://github.com/voutcn/megahit
 
 1) Install via conda environment
 2) Command (27 to 127 seems preferable)
-  - megahit -1 pe_1.fq -2 pe_2.fq -o out --k_min 27 --k_max 127 --k_step 10 --min-contig-len 1000 -t 96
-
+  - megahit -1 pe_1.fq -2 pe_2.fq -o out --k-min 27 --k-max 127 --k-step 10 --min-contig-len 1000 -t 96 -o <<>>
 metaCarvel
 
 https://github.com/marbl/MetaCarvel/wiki/5.-Interpreting-the-output
