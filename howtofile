@@ -4,7 +4,7 @@ To be filled:
 
 TrimGalore
 
-trim_galore --stringency 5 --length 75 (or 120) --quality 20 --max_n 2 --trim-n --cores 24 --paired <<the 2 pairs>>
+trim_galore --length 75 --cores 24 --paired <<the 2 pairs>>
 check under pgrep -a perl
 expect 2 .fq with val on the name
 
