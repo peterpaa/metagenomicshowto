@@ -118,6 +118,14 @@ refinem filter_bins --genome_ext .fa *product1 *temp3/taxon_filter.tsv MBS1384_r
 Bin_Reassembly
 metawrap reassemble_bins --parallel -o MBS1383_binreassembled -1 *_1.fastq -2 *_2.fastq -t 96 -m 824 -c 50 -x 5 -b *product2 (bins from refinem stage 2) - note: too damn long
 
+How to take bins that passes the QS score to a new folder?
+
+1) column -t metawrap_50_5_bins.stats | awk '{print $1, $2, $3, $2-(5*$3)}' | awk '$2>50 && $3<10 && $4>50' | awk '{print $1}' > metawrap_50_5_bins/1376_QS50_stats
+2) rename 's/.fa//' *
+3) mkdir new_folder
+4) cp $(<1376_QS50_stats) new_folder
+
+
 CheckM
 1) Install
 https://github.com/Ecogenomics/CheckM/wiki
