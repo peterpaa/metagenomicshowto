@@ -142,7 +142,7 @@ dRep
 GTDB-DK
 1) Install. conda. DL the database separately. 
 2) Connect the database = export GTDBTK_DATA_PATH=/mnt/volume1/release202/
-3) 
+3) gtdbtk classify_wf --cpus 48 --genome_dir Bins_refined_all_v1_insinglefolder --out_dir Bins_refined_all_v1_insinglefolder_gtdbtk_classifywf
 
 
 16S rRNA detection and analysis
