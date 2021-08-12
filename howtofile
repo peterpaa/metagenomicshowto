@@ -144,6 +144,20 @@ GTDB-DK
 2) Connect the database = export GTDBTK_DATA_PATH=/mnt/volume1/release202/
 3) gtdbtk classify_wf --cpus 48 --genome_dir Bins_refined_all_v1_insinglefolder --out_dir Bins_refined_all_v1_insinglefolder_gtdbtk_classifywf
 
+Anti-SMASH
+1) Install (follow manual installation here: https://docs.antismash.secondarymetabolites.org/install/#installing-the-latest-antismash-release)
+2) Activate environment
+
+source ~/asenv/bin/activate
+antismash my_input.gbk
+
+3) antismash --minlength 5000 --output-dir try --genefinding-tool prodigal -v 1376.bin.11.fna
+
+nohup sh -c 'for infile in *.fna; do antismash $infile --minlength 5000 --output-dir "${infile}_antismash" --genefinding-tool prodigal -v ; done' &
+
+
+
+
 
 16S rRNA detection and analysis
 
