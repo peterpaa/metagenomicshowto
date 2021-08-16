@@ -52,11 +52,10 @@ cctyper
 
 https://github.com/Russel88/CRISPRCasTyper/blob/master/bin/cctyper
 
-1) Install cctyper as above link specified, activate cctyper environment
-2) For chromosomes: cctyper <<input fasta>> <<output file directory name>> --prodigal single --circular -t <<thread number>> --keep_tmp 
-For scaffold/contig: cctyper <<input fasta>> <<output file directory name>> --prodigal meta -t <<thread number>> --keep_tmp
-For meta: similar to scaffold/contig
+Note: Only the chrom, complete, contigs were processed with cctyper 1.4.4 and the rest were cctyper 1.0.0
 
+1) Install cctyper as above link specified, activate cctyper environment
+2) cctyper <<input fasta>> <<output file directory name>> --prodigal meta -t <<thread number>> --keep_tmp
 
 For binning:
 
@@ -155,6 +154,12 @@ antismash my_input.gbk
 
 nohup sh -c 'for infile in *.fna; do antismash $infile --minlength 5000 --output-dir "${infile}_antismash" --genefinding-tool prodigal -v ; done' &
 
+
+BiG-Scape
+
+1) Install: https://git.wageningenur.nl/medema-group/BiG-SCAPE/-/wikis/installation (note, find the .yml file in the BiG* folder)
+2) I downloaded the PFAM34 on this one
+3) python BiG-SCAPE/bigscape.py --mibig -i Binsv2/Bins_refined_all_v1_insinglefolder_antismash_allfolders/1376.bin.11.fna_antismash -o BigScape_Trial
 
 
 
