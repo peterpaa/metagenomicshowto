@@ -161,7 +161,7 @@ BiG-Scape
 2) I downloaded the PFAM34 on this one
 3) python BiG-SCAPE/bigscape.py --mibig -i Binsv2/Bins_refined_all_v1_insinglefolder_antismash_allfolders/1376.bin.11.fna_antismash -o BigScape_Trial
 
-
+for f in *cctyper; do python cctyper_parsing.py --type VI-B2 --castype2 -d "${f}/" -p "${f}_13b2"; done
 
 
 16S rRNA detection and analysis
