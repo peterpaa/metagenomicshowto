@@ -164,6 +164,30 @@ BiG-Scape
 for f in *cctyper; do python cctyper_parsing.py --type VI-B2 --castype2 -d "${f}/" -p "${f}_13b2"; done
 
 
+PAM Analysis: 
+
+Given this amplicon: https://benchling.com/s/seq-22wlV6ytDuVXV6NH95XA and this plasmid map https://benchling.com/s/seq-gLvKqSY5G93dzMwKIYED
+
+zcat PAM_CellLine1_DKDL210007725-1a-AK395-N501_HH2V2CCX2_L4_1.fq.gz | grep '[TCAG][TCAG][TCAG][TCAG][TCAG][TCAG]CTGGAAGATATGACCAACTCTGTGGGCGCTAGAAGTCTGATAAAGCCACACGAGC[TCAG][TCAG][TCAG][TCAG][TCAG][TCAG]CCATCTTCGGCAACTATAACAAGATCAACGCCAGCGGCGTGGACGAAATCGTGCTGACCCTGACACTGTTTGAGGACAGAGAG' | cut -c 62-67 | sort | uniq -c | sort -nr | less > Trial.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 16S rRNA detection and analysis
 
 https://github.com/christophertbrown/bioscripts
