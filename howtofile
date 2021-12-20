@@ -52,8 +52,6 @@ cctyper
 
 https://github.com/Russel88/CRISPRCasTyper/blob/master/bin/cctyper
 
-Note: Only the chrom, complete, contigs were processed with cctyper 1.4.4 and the rest were cctyper 1.0.0
-
 1) Install cctyper as above link specified, activate cctyper environment
 2) cctyper <<input fasta>> <<output file directory name>> --prodigal meta -t <<thread number>> --keep_tmp
 
@@ -169,23 +167,7 @@ PAM Analysis:
 Given this amplicon: https://benchling.com/s/seq-22wlV6ytDuVXV6NH95XA and this plasmid map https://benchling.com/s/seq-gLvKqSY5G93dzMwKIYED
 
 zcat PAM_CellLine1_DKDL210007725-1a-AK395-N501_HH2V2CCX2_L4_1.fq.gz | grep '[TCAG][TCAG][TCAG][TCAG][TCAG][TCAG]CTGGAAGATATGACCAACTCTGTGGGCGCTAGAAGTCTGATAAAGCCACACGAGC[TCAG][TCAG][TCAG][TCAG][TCAG][TCAG]CCATCTTCGGCAACTATAACAAGATCAACGCCAGCGGCGTGGACGAAATCGTGCTGACCCTGACACTGTTTGAGGACAGAGAG' | cut -c 62-67 | sort | uniq -c | sort -nr | less > Trial.txt
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+zcat *_2.fq.gz | grep 'GTTCCTCGATCATCTCTCTGTCCTCAAACAGTGTCAGGGTCAGCACGATTTCGTCCACGCCGCTGGCGTTGATCTTGTTATAGTTGCCGAAGATGG[TCAG][TCAG][TCAG][TCAG][TCAG][TCAG]GCTCGTGTGGCTTTATCAGACTTCTAGCGCCCACAGAGTTGGTCATAT'| cut -c 97-102 | sort | uniq -c | sort -nr | less > hehe.txt
 
 
 16S rRNA detection and analysis
@@ -216,7 +198,7 @@ Libraries (for phylogeny and other CRISPR stuff)
 
 
 
-Plass
+Plass (2.c7e35)
 
 trim_galore --stringency 5 --length 120 --quality 20 --max_n 2 --trim-n --cores 8 –paired MBS1384R1_1.fastq.gz MBS1384R1_2.fastq.gz
 zcat MBS1384R1_1_trimming_min120.fastq.gz MBS1384R1_2_trimming_min120.fastq.gz | seqkit sample -p 0.5 -o MBS1384R1_12_min120_max10GB.fastq.gz -j 64 (-p parameters should have a final dataset of 20GB)
